@@ -26,4 +26,17 @@ charlie@example.com,Charlie Davis,4,11
 diana@example.com,Diana Prince,15,0
 EOF2
 
-echo "Files created"
+touch "$project_dir/reports/reports.log"
+
+read -p "Enter warning threshold (75): " warning
+read -p "Enter failure threshold (50): " failure
+
+if [[ "$warning" =~ ^[0-9]+$ ]]; then
+    sed -i.bak "s/\"warning\": 75/\"warning\": $warning/" "$project_dir/Helpers/config.json"
+fi
+
+if [[ "$failure" =~ ^[0-9]+$ ]]; then
+    sed -i.bak "s/\"failure\": 50/\"failure\": $failure/" "$project_dir/Helpers/config.json"
+fi
+
+rm -f "$project_dir/Helpers/config.json.bak"
