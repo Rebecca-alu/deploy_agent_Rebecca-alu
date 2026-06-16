@@ -18,4 +18,12 @@ cat > "$project_dir/Helpers/config.json" << EOF2
 }
 EOF2
 
-echo "Config file created"
+cat > "$project_dir/Helpers/assets.csv" << EOF2
+Email,Names,Attendance Count,Absence Count
+alice@example.com,Alice Johnson,14,1
+bob@example.com,Bob Smith,7,8
+charlie@example.com,Charlie Davis,4,11
+diana@example.com,Diana Prince,15,0
+EOF2
+
+echo "Files created"
