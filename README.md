@@ -1,27 +1,162 @@
-# Attendance Tracker Deployment Agent
+Attendance Tracker Deployment Agent
 
-## Project Summary
+Project Overview
 
-For this project, I created a Bash shell script that automates the setup of a Student Attendance Tracker. The goal was to avoid manually creating folders and files every time the project needs to be deployed. By running a single script, the entire project structure is created automatically, making the setup process faster and more efficient.
+This project is an automated deployment and bootstrapping system for a Student Attendance Tracker application using Bash scripting.
 
-The script also allows the user to update attendance warning and failure thresholds through terminal input. These values are then updated in the configuration file using the `sed` command. In addition, the script performs a health check to confirm that Python 3 is installed and verifies that all required files and directories have been created successfully.
+The purpose of the project is to demonstrate Infrastructure as Code (IaC) principles by automating:
 
-Another important feature of the project is signal handling. If the user interrupts the script using `Ctrl + C`, the script catches the signal, creates an archive of the current project state, and removes the incomplete project directory. This helps prevent unnecessary files from being left behind and keeps the workspace organized.
+* Project directory creation
+* Configuration file generation
+* Environment validation
+* Dynamic configuration updates
+* Process management using signal trapping
 
-This project helped me practice shell scripting concepts such as file and directory management, user input handling, stream editing, process management, and environment validation.
+Instead of manually creating folders and files, the shell script performs the entire setup automatically in a few seconds.
 
-## How to Run
+⸻
 
-```bash
+Features
+
+Automated Project Structure
+
+The script automatically creates the following structure:
+
+attendance_tracker_<project_name>/
+│
+├── Helpers/
+│   ├── config.json
+│   └── assets.csv
+│
+├── reports/
+│   └── reports.log
+│
+└── attendance_checker.py
+
+⸻
+
+Dynamic Configuration
+
+The user can customize:
+
+* Warning threshold
+* Failure threshold
+
+The script uses the sed command to update values inside config.json automatically.
+
+⸻
+
+Process Management with Signal Trap
+
+The project implements SIGINT handling using the trap command.
+
+If the user presses:
+
+CTRL + C
+
+during execution, the script will:
+
+1. Archive the current project directory
+2. Create a .tar.gz backup
+3. Remove the incomplete project folder
+4. Exit safely
+
+This prevents workspace clutter and incomplete deployments.
+
+⸻
+
+Environment Validation
+
+The script checks if Python3 is installed using:
+
+python3 --version
+
+This ensures the environment is correctly configured before execution completes.
+
+⸻
+
+Technologies Used
+
+* Bash Shell Scripting
+* Linux Commands
+* sed
+* tar
+* mkdir
+* trap
+* Python3 validation
+
+⸻
+
+How to Run the Project
+
+1. Give Execute Permission
+
 chmod +x setup_project.sh
+
+⸻
+
+2. Run the Script
+
 ./setup_project.sh
-```
 
-## Archive Feature
+⸻
 
-To test the archive feature, run the script and press `Ctrl + C` before it finishes executing. The script will:
+Example Execution
 
-1. Create an archive of the current project.
-2. Remove the incomplete project directory.
-3. Exit safely after displaying a message.
+Enter project name: school_system
+Enter warning threshold (default 75): 80
+Enter failure threshold (default 50): 45
 
+The script will automatically create:
+
+attendance_tracker_school_system
+
+with all required files and folders.
+
+⸻
+
+Health Checks
+
+The script validates:
+
+* Python3 installation
+* Required directory structure
+* Required configuration files
+
+⸻
+
+Signal Trap Demonstration
+
+To test the archive feature:
+
+1. Start the script
+2. Press:
+
+CTRL + C
+
+The script will:
+
+* Create an archive backup
+* Remove incomplete files
+* Exit safely
+
+⸻
+
+Learning Outcomes
+
+This project demonstrates:
+
+* Shell scripting fundamentals
+* Linux process management
+* Automation using Infrastructure as Code
+* File manipulation and configuration
+* Environment validation
+* Error handling and cleanup
+
+⸻
+
+Author
+
+Student Deployment Automation Project
+
+Linux System Administration — Individual Summative Lab
