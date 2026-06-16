@@ -1,5 +1,6 @@
 Attendance Tracker Deployment Agent
-
+Here is the link to the video:
+https://www.loom.com/share/115796144cbb4d35a440f4daa72736f8
 Project Overview
 
 This project is an automated deployment and bootstrapping system for a Student Attendance Tracker application using Bash scripting.
