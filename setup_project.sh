@@ -4,6 +4,24 @@ read -p "Enter project name: " name
 
 project_dir="attendance_tracker_$name"
 
+cleanup() {
+
+    echo ""
+    echo "Ctrl+C detected"
+
+    if [ -d "$project_dir" ]; then
+        tar -czf "${project_dir}_archive.tar.gz" "$project_dir"
+        rm -rf "$project_dir"
+
+        echo "Archive created"
+        echo "Incomplete directory deleted"
+    fi
+
+    exit 1
+}
+
+trap cleanup SIGINT
+
 mkdir -p "$project_dir/Helpers"
 mkdir -p "$project_dir/reports"
 
@@ -40,3 +58,28 @@ if [[ "$failure" =~ ^[0-9]+$ ]]; then
 fi
 
 rm -f "$project_dir/Helpers/config.json.bak"
+
+echo ""
+echo "Checking Python installation..."
+
+if python3 --version > /dev/null 2>&1
+then
+    echo "Python3 is installed"
+else
+    echo "Python3 is not installed"
+fi
+
+echo ""
+echo "Checking project structure..."
+
+if [ -f "$project_dir/Helpers/config.json" ] &&
+   [ -f "$project_dir/Helpers/assets.csv" ] &&
+   [ -f "$project_dir/reports/reports.log" ]
+then
+    echo "Project structure is correct"
+else
+    echo "Project structure is incomplete"
+fi
+
+echo ""
+echo "Setup completed"
